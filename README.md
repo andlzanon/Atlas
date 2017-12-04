@@ -12,13 +12,13 @@ Aplicativo gerenciador de disciplinas acadêmicas. Nele é possível cadastrar d
 
 * André Levi Zanon
 
-* Nathan Sampaio de Araújo Ferreira, 587419
+* Nathan Sampaio de Araújo Ferreira
 
-* Paulo Vitor Tostes Betareli, 587648
+* Paulo Vitor Tostes Betareli
 
-* Rodrigo Ferrari de Souza, 619795
+* Rodrigo Ferrari de Souza
 
-* Victor Hugo Domingos de Abreu, 619841.
+* Victor Hugo Domingos de Abreu
 
 * Profa. Tatiana de Alencar
 
