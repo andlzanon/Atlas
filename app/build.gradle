@@ -33,4 +33,15 @@ dependencies {
     //dependencia d ButterKnife para os bindings
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    //dependencia para imagem circular
+    compile 'de.hdodenhof:circleimageview:2.2.0'
+    //dependencia de autenticacao do firebase
+    compile 'com.google.firebase:firebase-auth:11.6.2'
+    compile 'com.google.android.gms:play-services-auth:11.6.2'
+    compile 'com.google.firebase:firebase-core:11.6.2'
+    //dependencia do picasso
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }
+
+//plugin para uso do firebase
+apply plugin: 'com.google.gms.google-services'

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "212998187070",
+    "firebase_url": "https://atlas-3646c.firebaseio.com",
+    "project_id": "atlas-3646c",
+    "storage_bucket": "atlas-3646c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:212998187070:android:4a0377c74d3b4a9a",
+        "android_client_info": {
+          "package_name": "bug.the.atlas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "212998187070-8dv0dgfam8trgr0v35ivk9vbc2mvv594.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "bug.the.atlas",
+            "certificate_hash": "c88a8223c3d36536c7a3956d6af2a5f8438309f1"
+          }
+        },
+        {
+          "client_id": "212998187070-ppomj86qq8c9v6ttjc8p1am5rvd3no75.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwgWwzTZDNzkA1auc4Yguz5wwKUwiDeZ8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "212998187070-ppomj86qq8c9v6ttjc8p1am5rvd3no75.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

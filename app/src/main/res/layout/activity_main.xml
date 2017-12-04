@@ -2,83 +2,105 @@
 
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:descendantFocusability="beforeDescendants"
-        android:focusableInTouchMode="true"
-        android:orientation="vertical"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+        android:layout_gravity="center">
 
-        <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="50dp"
-            android:contentDescription="@null"
-            android:src="@mipmap/ic_launcher" />
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/text_input_layout_username"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="41dp"
-            android:textColorHint="@color/white">
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/edit_text_username"
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:contentDescription="@null"
+                android:src="@mipmap/ic_launcher" />
+
+            <LinearLayout
+                android:id="@+id/linear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:hint="@string/username"
-                android:maxLines="1"
-                android:lines="1"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:imeOptions="actionNext" />
+                android:orientation="horizontal"
+                android:layout_gravity="center">
 
-        </android.support.design.widget.TextInputLayout>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_gravity="center_horizontal|center_vertical">
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/text_input_layout_password"
-            android:layout_width="match_parent"
+                    <ProgressBar
+                        android:id="@+id/progressBarFoto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:visibility="invisible"
+                        tools:ignore="NotSibling" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/imagemPerfil"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center_vertical"/>
+
+                </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/nomePerfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/white"
+                    android:textStyle="normal|bold"
+                    android:text="Andre Levi Zanon"/>
+
+
+            </LinearLayout>
+
+
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/button_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="33dp"
+                android:layout_marginLeft="29dp"
+                android:layout_marginRight="29dp"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:textColorHint="@color/white">
+            android:layout_gravity="center"
+            android:visibility="invisible"/>
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/edit_text_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/password"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:lines="1"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
+    </FrameLayout>
 
-        </android.support.design.widget.TextInputLayout>
-
-        <Button
-            android:id="@+id/button_login"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginBottom="33dp"
-            android:layout_marginLeft="29dp"
-            android:layout_marginRight="29dp"
-            android:layout_marginTop="48dp"
-            android:background="@drawable/havelock_blue_rounded_corners"
-            android:fontFamily="sans-serif-bold"
-            android:text="@string/sign_in"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="17sp" />
-
-    </LinearLayout>
 
 </ScrollView>
