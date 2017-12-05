@@ -1,4 +1,4 @@
-package bug.the.atlas;
+package bug.the.atlas.Login;
 
 import android.content.Context;
 import android.content.Intent;
@@ -28,6 +28,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.squareup.picasso.Picasso;
 
+import bug.the.atlas.Disciplinas.ListaDeDisciplinasActivity;
+import bug.the.atlas.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
