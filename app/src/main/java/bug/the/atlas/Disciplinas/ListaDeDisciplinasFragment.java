@@ -2,6 +2,7 @@ package bug.the.atlas.Disciplinas;
 
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,14 +22,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class ListaDeDisciplinasFragment extends Fragment {
+public class ListaDeDisciplinasFragment extends Fragment implements NovaDisciplinaDialog.AoSalvarEvento {
 
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
 
     DisciplinasAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ArrayList mDisciplinas = new ArrayList();
+    private ArrayList<Disciplina> mDisciplinas = new ArrayList();
 
     public static ListaDeDisciplinasFragment novaInstancia() {
         ListaDeDisciplinasFragment fragment = new ListaDeDisciplinasFragment();
@@ -46,14 +47,6 @@ public class ListaDeDisciplinasFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_lista_de_disciplinas, container, false);
         ButterKnife.bind(this, view);
 
-        mDisciplinas.add(new Disciplina("Calculo1", 6, 5, 2, 2));
-        mDisciplinas.add(new Disciplina("Calculo1", 6, 5, 2, 2));
-        mDisciplinas.add(new Disciplina("Calculo1", 6, 5, 2, 2));
-        mDisciplinas.add(new Disciplina("Calculo1", 6, 5, 2, 2));
-        mDisciplinas.add(new Disciplina("Calculo1", 6, 5, 2, 2));
-        mDisciplinas.add(new Disciplina("Calculo1", 6, 5, 2, 2));
-        mDisciplinas.add(new Disciplina("Calculo1", 6, 5, 2, 2));
-
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
@@ -62,13 +55,19 @@ public class ListaDeDisciplinasFragment extends Fragment {
         mAdapter = new DisciplinasAdapter(getContext(), mDisciplinas, fm);
         mRecyclerView.setAdapter(mAdapter);
 
+        FloatingActionButton fab = (FloatingActionButton)view.findViewById(R.id.addDisciplinas);
+        fab.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                NovaDisciplinaDialog disciplinaDialog = NovaDisciplinaDialog.newInstance();
+                disciplinaDialog.abrir(getChildFragmentManager());
+            }
+        });
+
         ItemTouchHelper mIth = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP |
                 ItemTouchHelper.DOWN, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                mDisciplinas.remove(mDisciplinas.get(viewHolder.getAdapterPosition()));
-                Log.d("ExcluindoTrabalho", "Excluido " +viewHolder.getAdapterPosition());
-                mAdapter.notifyDataSetChanged();
+                exclui(mDisciplinas.get(viewHolder.getAdapterPosition()));
             }
 
             @Override
@@ -80,4 +79,16 @@ public class ListaDeDisciplinasFragment extends Fragment {
         // Inflate the layout for this fragment
         return view;
     }
+
+    public void adiciona(Disciplina trabalho){
+        mDisciplinas.add(trabalho);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    //mudei
+    public void exclui(Disciplina trabalho){
+        mDisciplinas.remove(trabalho);
+        mAdapter.notifyDataSetChanged();
+    }
+
 }
