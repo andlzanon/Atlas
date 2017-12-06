@@ -11,8 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppThemeNoActionBar">
-        <activity
-            android:name=".Login.MainActivity">
+        <activity android:name=".Login.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,6 +19,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".Disciplinas.ListaDeDisciplinasActivity" />
+        <activity android:name=".DisciplinasDetail.DisciplinasDetailActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Disciplinas.ListaDeDisciplinasActivity" />
+        </activity>
     </application>
 
 </manifest>

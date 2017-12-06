@@ -1,6 +1,7 @@
 package bug.the.atlas.Disciplinas;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
@@ -13,10 +14,12 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import bug.the.atlas.DisciplinasDetail.DisciplinasDetailActivity;
 import bug.the.atlas.Entidades.Disciplina;
 import bug.the.atlas.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Andre on 05/12/2017.
@@ -24,6 +27,7 @@ import butterknife.ButterKnife;
 
 public class DisciplinasAdapter extends RecyclerView.Adapter<DisciplinasAdapter.DisciplinasViewHolder> {
 
+    public static final String EXTRA_DISCIPLINA = "disciplina";
     private ArrayList<Disciplina> disciplinas;
     FragmentManager fragmentManager;
     Context context;
@@ -42,7 +46,7 @@ public class DisciplinasAdapter extends RecyclerView.Adapter<DisciplinasAdapter.
     }
 
     @Override
-    public void onBindViewHolder(DisciplinasViewHolder holder, int position) {
+    public void onBindViewHolder(DisciplinasViewHolder holder, final int position) {
         Bitmap bitmap = Bitmap.createBitmap(200, 200, Bitmap.Config.RGB_565);
         bitmap.eraseColor(context.getResources().getColor(R.color.vermelho));
         holder.nomeDisciplina.setText(disciplinas.get(position).getNome());
@@ -55,6 +59,15 @@ public class DisciplinasAdapter extends RecyclerView.Adapter<DisciplinasAdapter.
         else{
             holder.status.setImageBitmap(bitmap);
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, DisciplinasDetailActivity.class);
+                intent.putExtra(EXTRA_DISCIPLINA, disciplinas.get(position));
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
