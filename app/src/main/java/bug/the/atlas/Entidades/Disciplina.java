@@ -59,6 +59,10 @@ public class Disciplina implements Parcelable{
         this.faltas++;
     }
 
+    public void decrementaFaltas(){
+        this.faltas--;
+    }
+
     private Disciplina(Parcel from){
         nome = from.readString();
         media = from.readDouble();

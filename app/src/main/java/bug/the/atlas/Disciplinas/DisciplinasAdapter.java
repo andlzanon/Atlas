@@ -54,9 +54,11 @@ public class DisciplinasAdapter extends RecyclerView.Adapter<DisciplinasAdapter.
             holder.status.setImageBitmap(bitmap);
         else if(disciplinas.get(position).getNotaAtual() > disciplinas.get(position).getNotaRec() &&
                 disciplinas.get(position).getNotaAtual() < disciplinas.get(position).getMedia()){
+            bitmap.eraseColor(context.getResources().getColor(R.color.amarelo));
             holder.status.setImageBitmap(bitmap);
         }
         else{
+            bitmap.eraseColor(context.getResources().getColor(R.color.verde));
             holder.status.setImageBitmap(bitmap);
         }
 
