@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.Locale;
 
+import bug.the.atlas.Entidades.Provas;
+
 /**
  * Created by Andre on 04/12/2017.
  */
@@ -24,7 +26,10 @@ public class AbasPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         // os parametros são: posiçao: para se saber qual fragment usar
-        return ListaDeDisciplinasFragment.novaInstancia();
+        if(position == 0)
+            return ListaDeDisciplinasFragment.novaInstancia();
+        else
+            return ProvasRecyclerViewFragment.novaInstancia();
     }
 
     @Override

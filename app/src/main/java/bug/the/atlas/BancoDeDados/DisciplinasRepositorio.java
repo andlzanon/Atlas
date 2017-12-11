@@ -72,7 +72,7 @@ public class DisciplinasRepositorio {
         return linhasModificadas;
     }
 
-    public void listaEventos(ArrayList<Disciplina> arrayList){
+    public void listaDisciplinas(ArrayList<Disciplina> arrayList){
         SQLiteDatabase bd = helper.getReadableDatabase();
 
         arrayList.clear();

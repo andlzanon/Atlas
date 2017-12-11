@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import bug.the.atlas.BancoDeDados.DisciplinasRepositorio;
 import bug.the.atlas.BaseActivity;
@@ -52,7 +51,7 @@ public class ListaDeDisciplinasFragment extends Fragment implements NovaDiscipli
 
         //passa todas os dados do BD para a lista
         dr = ((BaseActivity)getContext()).getDr();
-        dr.listaEventos(mDisciplinas);
+        dr.listaDisciplinas(mDisciplinas);
 
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -82,10 +81,6 @@ public class ListaDeDisciplinasFragment extends Fragment implements NovaDiscipli
                 return true;
             }
         });mIth.attachToRecyclerView(mRecyclerView);
-
-        for(Disciplina disciplina : mDisciplinas){
-            Log.d("TESTE", Integer.toString(disciplina.getFaltas()));
-        }
 
         // Inflate the layout for this fragment
         return view;
