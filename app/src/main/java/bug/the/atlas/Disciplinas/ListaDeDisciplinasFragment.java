@@ -14,8 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
+import bug.the.atlas.BancoDeDados.DisciplinasRepositorio;
+import bug.the.atlas.BaseActivity;
 import bug.the.atlas.Entidades.Disciplina;
 import bug.the.atlas.R;
 import butterknife.BindView;
@@ -30,6 +31,7 @@ public class ListaDeDisciplinasFragment extends Fragment implements NovaDiscipli
     DisciplinasAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<Disciplina> mDisciplinas = new ArrayList();
+    private static DisciplinasRepositorio dr;
 
     public static ListaDeDisciplinasFragment novaInstancia() {
         ListaDeDisciplinasFragment fragment = new ListaDeDisciplinasFragment();
@@ -46,6 +48,10 @@ public class ListaDeDisciplinasFragment extends Fragment implements NovaDiscipli
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_lista_de_disciplinas, container, false);
         ButterKnife.bind(this, view);
+
+        //passa todas os dados do BD para a lista
+        dr = ((BaseActivity)getContext()).getDr();
+        dr.listaDisciplinas(mDisciplinas);
 
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -82,13 +88,19 @@ public class ListaDeDisciplinasFragment extends Fragment implements NovaDiscipli
 
     public void adiciona(Disciplina trabalho){
         mDisciplinas.add(trabalho);
+        dr.inserir(trabalho);
         mAdapter.notifyDataSetChanged();
     }
 
-    //mudei
-    public void exclui(Disciplina trabalho){
-        mDisciplinas.remove(trabalho);
+
+    public void exclui(Disciplina disciplina){
+        mDisciplinas.remove(disciplina);
+        dr.excluir(disciplina);
         mAdapter.notifyDataSetChanged();
+    }
+
+    public static DisciplinasRepositorio getDr(){
+        return dr;
     }
 
 }

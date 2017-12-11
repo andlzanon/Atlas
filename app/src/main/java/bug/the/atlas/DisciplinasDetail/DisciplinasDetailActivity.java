@@ -14,8 +14,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
+import bug.the.atlas.BancoDeDados.DisciplinasRepositorio;
+import bug.the.atlas.BancoDeDados.ProvasRepositorio;
+import bug.the.atlas.BaseActivity;
 import bug.the.atlas.Entidades.Disciplina;
 import bug.the.atlas.Entidades.Provas;
 import bug.the.atlas.R;
@@ -26,7 +31,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static bug.the.atlas.Disciplinas.DisciplinasAdapter.EXTRA_DISCIPLINA;
 
-public class DisciplinasDetailActivity extends AppCompatActivity implements AvaliacoesDialogFragment.AoSalvarProva,
+public class DisciplinasDetailActivity extends BaseActivity implements AvaliacoesDialogFragment.AoSalvarProva,
         AvaliacoesDialogFragment.AoEditarProva {
 
     @BindView(R.id.toolbar)
@@ -51,7 +56,10 @@ public class DisciplinasDetailActivity extends AppCompatActivity implements Aval
     ProvasAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<Provas> mProvas = new ArrayList<Provas>();
+    private DisciplinasRepositorio dr;
+    private ProvasRepositorio pr;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,8 +67,18 @@ public class DisciplinasDetailActivity extends AppCompatActivity implements Aval
 
         ButterKnife.bind(this);
 
+        dr = getDr();
+        pr = getPr();
+
         Intent intent = getIntent();
         disciplina = intent.getParcelableExtra(EXTRA_DISCIPLINA);
+
+        if(disciplina != null){
+            DecimalFormat decimalFormat = new DecimalFormat("00.00");
+            String nota = decimalFormat.format(disciplina.getNotaAtual());
+            notalAtual.setText(nota);
+            faltasAtual.setText(Integer.toString(disciplina.getFaltas()));
+        }
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(disciplina.getNome());
@@ -73,6 +91,7 @@ public class DisciplinasDetailActivity extends AppCompatActivity implements Aval
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        pr.listaProvasDisciplina(mProvas, disciplina.getId());
         mAdapter = new ProvasAdapter(this, mProvas, getSupportFragmentManager());
         mRecyclerView.setAdapter(mAdapter);
 
@@ -99,24 +118,28 @@ public class DisciplinasDetailActivity extends AppCompatActivity implements Aval
         });
     }
 
-    private void exclui(Provas prova) {
-        mProvas.remove(prova);
-    }
-
     @SuppressLint("SetTextI18n")
     @OnClick(R.id.diminuiFalta)
     public void onClickDiminui(){
-        if(disciplina.getFaltas() > 0)
+        if(disciplina.getFaltas() > 0){
             disciplina.decrementaFaltas();
 
-        faltasAtual.setText(Integer.toString(disciplina.getFaltas()));
-        setStatusFaltas();
+            //atualiza novo numerod de faltas no BD
+            dr.atualizar(disciplina);
+
+            faltasAtual.setText(Integer.toString(disciplina.getFaltas()));
+            setStatusFaltas();
+        }
     }
 
     @SuppressLint("SetTextI18n")
     @OnClick(R.id.aumentaFalta)
     public void onClickAumenta(){
         disciplina.incrementaFaltas();
+
+        //atualiza novo numerod de faltas no BD
+        dr.atualizar(disciplina);
+
         faltasAtual.setText(Integer.toString(disciplina.getFaltas()));
         setStatusFaltas();
     }
@@ -129,7 +152,6 @@ public class DisciplinasDetailActivity extends AppCompatActivity implements Aval
         double horasAssistidas = horas - disciplina.getFaltas();
 
         double status = horasAssistidas/horas;
-        Log.d("FALTAS", Double.toString(status));
         if(status >= 0.75){
             bitmap.eraseColor(getResources().getColor(R.color.verde));
             statusFalta.setImageBitmap(bitmap);
@@ -158,17 +180,34 @@ public class DisciplinasDetailActivity extends AppCompatActivity implements Aval
 
     @SuppressLint("SetTextI18n")
     public void calculaNota(){
-        double totalNota = 0;
-        double totalPeso = 0;
-        for(Provas prova : mProvas){
-            totalNota += prova.getNota();
-            totalPeso += prova.getPesoNaMediaFinal();
+        if(mProvas.size() >= 1){
+            double totalNota = 0;
+            double totalPeso = 0;
+            for(Provas prova : mProvas){
+                totalNota += prova.getNota();
+                totalPeso += prova.getPesoNaMediaFinal();
+            }
+
+            double media = totalNota/totalPeso;
+            disciplina.setNotaAtual(media);
+
+            //atualiza a nova nota no BD
+            dr.atualizar(disciplina);
+
+            setStatusNota();
+            notalAtual.setText(Double.toString(disciplina.getNotaAtual()));
+        }
+        else{
+            disciplina.setNotaAtual(0);
+
+            //atualiza a nova nota no BD
+            dr.atualizar(disciplina);
+
+            setStatusNota();
+            notalAtual.setText(Double.toString(disciplina.getNotaAtual()));
         }
 
-        double media = totalNota/totalPeso;
-        disciplina.setNotaAtual(media);
-        setStatusNota();
-        notalAtual.setText(Double.toString(disciplina.getNotaAtual()));
+
     }
 
     @Override
@@ -180,6 +219,8 @@ public class DisciplinasDetailActivity extends AppCompatActivity implements Aval
         mProvas.get(pos).setData(prova.getData());
         mProvas.get(pos).setPesoNaMediaFinal(prova.getPesoNaMediaFinal());
         mProvas.get(pos).setNota(prova.getNota());
+        //atualiza no BD a edicao da prova
+        pr.atualizar(mProvas.get(pos));
         calculaNota();
         mAdapter.notifyDataSetChanged();
     }
@@ -187,6 +228,14 @@ public class DisciplinasDetailActivity extends AppCompatActivity implements Aval
     @Override
     public void adicionaProva(Provas prova) {
         mProvas.add(prova);
+        pr.inserir(prova, disciplina.getId());
+        calculaNota();
+        mAdapter.notifyDataSetChanged();
+    }
+
+    private void exclui(Provas prova) {
+        mProvas.remove(prova);
+        pr.excluir(prova);
         calculaNota();
         mAdapter.notifyDataSetChanged();
     }

@@ -5,7 +5,9 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -92,6 +94,7 @@ public class AvaliacoesDialogFragment extends DialogFragment {
             data.setText(mProva.getData());
             horario.setText(mProva.getHorario());
             peso.setText(Double.toString(mProva.getPesoNaMediaFinal()));
+            Log.d("NOTA", Double.toString(mProva.getNota()));
             nota.setText(Double.toString(mProva.getNota()));
         }
 
@@ -152,6 +155,14 @@ public class AvaliacoesDialogFragment extends DialogFragment {
             }
         });
 
+        final Button buttonCalendario = (Button) layout.findViewById(R.id.button_save_calendario);
+        buttonCalendario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                salvaCalendario();
+            }
+        });
+
         return layout;
     }
 
@@ -203,6 +214,26 @@ public class AvaliacoesDialogFragment extends DialogFragment {
         }
 
         dismiss();
+    }
+
+    public void salvaCalendario(){
+        Intent intent = new Intent(Intent.ACTION_INSERT);
+        Calendar beginTime = Calendar.getInstance();
+        String data = mProva.getData();
+        String [] valores = data.split("/");
+        for(String valor : valores){
+            Log.d("TESTE", valor);
+        }
+        String hora = mProva.getHorario();
+        String [] hemin = hora.split(":");
+        beginTime.set(Integer.parseInt(valores[2]), Integer.parseInt(valores[0]), Integer.parseInt(valores[1]),
+                Integer.parseInt(hemin[0]), Integer.parseInt(hemin[1]), 0);
+        intent = new Intent(Intent.ACTION_INSERT)
+                .setData(CalendarContract.Events.CONTENT_URI)
+                .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime.getTimeInMillis())
+                .putExtra(CalendarContract.Events.TITLE, mProva.getNome())
+                .putExtra(CalendarContract.Events.EVENT_LOCATION, mProva.getLocal());
+        startActivity(intent);
     }
 
     public interface AoSalvarProva {
