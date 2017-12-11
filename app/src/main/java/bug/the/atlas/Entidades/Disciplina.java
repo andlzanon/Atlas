@@ -30,15 +30,19 @@ public class Disciplina implements Parcelable{
         notaAtual = 0;
     }
 
-    public Disciplina(long id, String nome, double media, double notaRec, int aulasPorSemana, int horasPorAula) {
+    public Disciplina(long id, String nome, double media, double notaRec, int aulasPorSemana, int horasPorAula, int faltas, double notaAtual) {
         this.id = id;
         this.nome = nome;
         this.media = media;
         this.notaRec = notaRec;
         this.aulasPorSemana = aulasPorSemana;
         this.horasPorAula = horasPorAula;
-        faltas = 0;
-        notaAtual = 0;
+        this.faltas = faltas;
+        this.notaAtual = notaAtual;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public String getNome() {
@@ -82,6 +86,7 @@ public class Disciplina implements Parcelable{
     }
 
     private Disciplina(Parcel from){
+        id = from.readLong();
         nome = from.readString();
         media = from.readDouble();
         notaRec = from.readDouble();
@@ -106,6 +111,7 @@ public class Disciplina implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags){
+        dest.writeLong(id);
         dest.writeString(nome);
         dest.writeDouble(media);
         dest.writeDouble(notaRec);

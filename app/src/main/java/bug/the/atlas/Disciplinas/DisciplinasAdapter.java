@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import bug.the.atlas.BancoDeDados.DisciplinasRepositorio;
 import bug.the.atlas.DisciplinasDetail.DisciplinasDetailActivity;
 import bug.the.atlas.Entidades.Disciplina;
 import bug.the.atlas.R;

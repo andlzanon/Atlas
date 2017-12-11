@@ -6,11 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
+import bug.the.atlas.BaseActivity;
 import bug.the.atlas.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ListaDeDisciplinasActivity extends AppCompatActivity {
+public class ListaDeDisciplinasActivity extends BaseActivity {
 
     @BindView(R.id.pager)
     ViewPager mViewPager;

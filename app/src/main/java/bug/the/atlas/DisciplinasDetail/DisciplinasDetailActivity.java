@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import bug.the.atlas.BancoDeDados.DisciplinasRepositorio;
+import bug.the.atlas.BaseActivity;
 import bug.the.atlas.Entidades.Disciplina;
 import bug.the.atlas.Entidades.Provas;
 import bug.the.atlas.R;
@@ -26,7 +28,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static bug.the.atlas.Disciplinas.DisciplinasAdapter.EXTRA_DISCIPLINA;
 
-public class DisciplinasDetailActivity extends AppCompatActivity implements AvaliacoesDialogFragment.AoSalvarProva,
+public class DisciplinasDetailActivity extends BaseActivity implements AvaliacoesDialogFragment.AoSalvarProva,
         AvaliacoesDialogFragment.AoEditarProva {
 
     @BindView(R.id.toolbar)
@@ -51,7 +53,9 @@ public class DisciplinasDetailActivity extends AppCompatActivity implements Aval
     ProvasAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<Provas> mProvas = new ArrayList<Provas>();
+    private DisciplinasRepositorio dr;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,8 +63,15 @@ public class DisciplinasDetailActivity extends AppCompatActivity implements Aval
 
         ButterKnife.bind(this);
 
+        dr = getDr();
+
         Intent intent = getIntent();
         disciplina = intent.getParcelableExtra(EXTRA_DISCIPLINA);
+
+        if(disciplina != null){
+            notalAtual.setText(Double.toString(disciplina.getNotaAtual()));
+            faltasAtual.setText(Integer.toString(disciplina.getFaltas()));
+        }
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(disciplina.getNome());
@@ -99,24 +110,28 @@ public class DisciplinasDetailActivity extends AppCompatActivity implements Aval
         });
     }
 
-    private void exclui(Provas prova) {
-        mProvas.remove(prova);
-    }
-
     @SuppressLint("SetTextI18n")
     @OnClick(R.id.diminuiFalta)
     public void onClickDiminui(){
-        if(disciplina.getFaltas() > 0)
+        if(disciplina.getFaltas() > 0){
             disciplina.decrementaFaltas();
 
-        faltasAtual.setText(Integer.toString(disciplina.getFaltas()));
-        setStatusFaltas();
+            //atualiza novo numerod de faltas no BD
+            dr.atualizar(disciplina);
+
+            faltasAtual.setText(Integer.toString(disciplina.getFaltas()));
+            setStatusFaltas();
+        }
     }
 
     @SuppressLint("SetTextI18n")
     @OnClick(R.id.aumentaFalta)
     public void onClickAumenta(){
         disciplina.incrementaFaltas();
+
+        //atualiza novo numerod de faltas no BD
+        dr.atualizar(disciplina);
+
         faltasAtual.setText(Integer.toString(disciplina.getFaltas()));
         setStatusFaltas();
     }
@@ -167,6 +182,10 @@ public class DisciplinasDetailActivity extends AppCompatActivity implements Aval
 
         double media = totalNota/totalPeso;
         disciplina.setNotaAtual(media);
+
+        //atualiza a nova nota no BD
+        dr.atualizar(disciplina);
+
         setStatusNota();
         notalAtual.setText(Double.toString(disciplina.getNotaAtual()));
     }
@@ -187,6 +206,12 @@ public class DisciplinasDetailActivity extends AppCompatActivity implements Aval
     @Override
     public void adicionaProva(Provas prova) {
         mProvas.add(prova);
+        calculaNota();
+        mAdapter.notifyDataSetChanged();
+    }
+
+    private void exclui(Provas prova) {
+        mProvas.remove(prova);
         calculaNota();
         mAdapter.notifyDataSetChanged();
     }

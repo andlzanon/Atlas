@@ -28,13 +28,14 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.squareup.picasso.Picasso;
 
+import bug.the.atlas.BaseActivity;
 import bug.the.atlas.Disciplinas.ListaDeDisciplinasActivity;
 import bug.the.atlas.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     //variaveis
     //variavel para acitvity for result
