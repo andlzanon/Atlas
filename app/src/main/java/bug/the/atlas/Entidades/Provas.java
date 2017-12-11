@@ -7,6 +7,8 @@ import java.io.Serializable;
  */
 
 public class Provas implements Serializable {
+    private long id;
+    private long id_disciplina;
     private String nome;
     private String local;
     private String horario;
@@ -30,6 +32,25 @@ public class Provas implements Serializable {
         this.data = data;
         this.pesoNaMediaFinal = pesoNaMediaFinal;
         this.nota = nota;
+    }
+
+    public Provas(long id, long id_disciplina, String nome, String local, String horario, String data, double pesoNaMediaFinal, double nota) {
+        this.id = id;
+        this.id_disciplina = id_disciplina;
+        this.nome = nome;
+        this.local = local;
+        this.horario = horario;
+        this.data = data;
+        this.pesoNaMediaFinal = pesoNaMediaFinal;
+        this.nota = nota;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public long getId_disciplina() {
+        return id_disciplina;
     }
 
     public String getNome() {

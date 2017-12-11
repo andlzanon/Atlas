@@ -37,7 +37,7 @@ public class DisciplinasSQLHelper extends SQLiteOpenHelper {
                 COLUNA_AULAS + " INTEGER NOT NULL, " +
                 COLUNA_HORASSEM + " INTEGER NOT NULL, " +
                 COLUNA_FALTAS + " INTEGER NOT NULL, " +
-                COLUNA_NOTAATUAL + " REAL NOT NULL)");
+                COLUNA_NOTAATUAL + " REAL)");
     }
 
     @Override

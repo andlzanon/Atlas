@@ -14,9 +14,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import bug.the.atlas.BancoDeDados.DisciplinasRepositorio;
+import bug.the.atlas.BancoDeDados.ProvasRepositorio;
 import bug.the.atlas.BaseActivity;
 import bug.the.atlas.Entidades.Disciplina;
 import bug.the.atlas.Entidades.Provas;
@@ -54,6 +57,7 @@ public class DisciplinasDetailActivity extends BaseActivity implements Avaliacoe
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<Provas> mProvas = new ArrayList<Provas>();
     private DisciplinasRepositorio dr;
+    private ProvasRepositorio pr;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -64,12 +68,15 @@ public class DisciplinasDetailActivity extends BaseActivity implements Avaliacoe
         ButterKnife.bind(this);
 
         dr = getDr();
+        pr = getPr();
 
         Intent intent = getIntent();
         disciplina = intent.getParcelableExtra(EXTRA_DISCIPLINA);
 
         if(disciplina != null){
-            notalAtual.setText(Double.toString(disciplina.getNotaAtual()));
+            DecimalFormat decimalFormat = new DecimalFormat("00.00");
+            String nota = decimalFormat.format(disciplina.getNotaAtual());
+            notalAtual.setText(nota);
             faltasAtual.setText(Integer.toString(disciplina.getFaltas()));
         }
 
@@ -84,6 +91,7 @@ public class DisciplinasDetailActivity extends BaseActivity implements Avaliacoe
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        pr.listaProvasDisciplina(mProvas, disciplina.getId());
         mAdapter = new ProvasAdapter(this, mProvas, getSupportFragmentManager());
         mRecyclerView.setAdapter(mAdapter);
 
@@ -144,7 +152,6 @@ public class DisciplinasDetailActivity extends BaseActivity implements Avaliacoe
         double horasAssistidas = horas - disciplina.getFaltas();
 
         double status = horasAssistidas/horas;
-        Log.d("FALTAS", Double.toString(status));
         if(status >= 0.75){
             bitmap.eraseColor(getResources().getColor(R.color.verde));
             statusFalta.setImageBitmap(bitmap);
@@ -173,21 +180,34 @@ public class DisciplinasDetailActivity extends BaseActivity implements Avaliacoe
 
     @SuppressLint("SetTextI18n")
     public void calculaNota(){
-        double totalNota = 0;
-        double totalPeso = 0;
-        for(Provas prova : mProvas){
-            totalNota += prova.getNota();
-            totalPeso += prova.getPesoNaMediaFinal();
+        if(mProvas.size() >= 1){
+            double totalNota = 0;
+            double totalPeso = 0;
+            for(Provas prova : mProvas){
+                totalNota += prova.getNota();
+                totalPeso += prova.getPesoNaMediaFinal();
+            }
+
+            double media = totalNota/totalPeso;
+            disciplina.setNotaAtual(media);
+
+            //atualiza a nova nota no BD
+            dr.atualizar(disciplina);
+
+            setStatusNota();
+            notalAtual.setText(Double.toString(disciplina.getNotaAtual()));
+        }
+        else{
+            disciplina.setNotaAtual(0);
+
+            //atualiza a nova nota no BD
+            dr.atualizar(disciplina);
+
+            setStatusNota();
+            notalAtual.setText(Double.toString(disciplina.getNotaAtual()));
         }
 
-        double media = totalNota/totalPeso;
-        disciplina.setNotaAtual(media);
 
-        //atualiza a nova nota no BD
-        dr.atualizar(disciplina);
-
-        setStatusNota();
-        notalAtual.setText(Double.toString(disciplina.getNotaAtual()));
     }
 
     @Override
@@ -199,6 +219,8 @@ public class DisciplinasDetailActivity extends BaseActivity implements Avaliacoe
         mProvas.get(pos).setData(prova.getData());
         mProvas.get(pos).setPesoNaMediaFinal(prova.getPesoNaMediaFinal());
         mProvas.get(pos).setNota(prova.getNota());
+        //atualiza no BD a edicao da prova
+        pr.atualizar(mProvas.get(pos));
         calculaNota();
         mAdapter.notifyDataSetChanged();
     }
@@ -206,12 +228,14 @@ public class DisciplinasDetailActivity extends BaseActivity implements Avaliacoe
     @Override
     public void adicionaProva(Provas prova) {
         mProvas.add(prova);
+        pr.inserir(prova, disciplina.getId());
         calculaNota();
         mAdapter.notifyDataSetChanged();
     }
 
     private void exclui(Provas prova) {
         mProvas.remove(prova);
+        pr.excluir(prova);
         calculaNota();
         mAdapter.notifyDataSetChanged();
     }

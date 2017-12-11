@@ -92,6 +92,7 @@ public class AvaliacoesDialogFragment extends DialogFragment {
             data.setText(mProva.getData());
             horario.setText(mProva.getHorario());
             peso.setText(Double.toString(mProva.getPesoNaMediaFinal()));
+            Log.d("NOTA", Double.toString(mProva.getNota()));
             nota.setText(Double.toString(mProva.getNota()));
         }
 
