@@ -148,12 +148,27 @@ public class DisciplinasDetailActivity extends AppCompatActivity implements Aval
         else if(disciplina.getNotaAtual() > disciplina.getNotaRec() &&
                 disciplina.getNotaAtual() < disciplina.getMedia()){
             bitmap.eraseColor(getResources().getColor(R.color.amarelo));
-            statusFalta.setImageBitmap(bitmap);
+            statusNota.setImageBitmap(bitmap);
         }
         else{
             bitmap.eraseColor(getResources().getColor(R.color.verde));
-            statusFalta.setImageBitmap(bitmap);
+            statusNota.setImageBitmap(bitmap);
         }
+    }
+
+    @SuppressLint("SetTextI18n")
+    public void calculaNota(){
+        double totalNota = 0;
+        double totalPeso = 0;
+        for(Provas prova : mProvas){
+            totalNota += prova.getNota();
+            totalPeso += prova.getPesoNaMediaFinal();
+        }
+
+        double media = totalNota/totalPeso;
+        disciplina.setNotaAtual(media);
+        setStatusNota();
+        notalAtual.setText(Double.toString(disciplina.getNotaAtual()));
     }
 
     @Override
@@ -165,12 +180,14 @@ public class DisciplinasDetailActivity extends AppCompatActivity implements Aval
         mProvas.get(pos).setData(prova.getData());
         mProvas.get(pos).setPesoNaMediaFinal(prova.getPesoNaMediaFinal());
         mProvas.get(pos).setNota(prova.getNota());
+        calculaNota();
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void adicionaProva(Provas prova) {
         mProvas.add(prova);
+        calculaNota();
         mAdapter.notifyDataSetChanged();
     }
 }
