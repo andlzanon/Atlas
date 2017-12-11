@@ -29,6 +29,10 @@ public class ProvasSQLHelper extends SQLiteOpenHelper {
         super(context, NOME_BD, null, VERSAO_BANCO);
     }
 
+    /**
+     * Cria banco de dados para armazenar provas
+     * @param db
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABELA_PROVAS + " (" +

@@ -34,6 +34,9 @@ import static bug.the.atlas.Disciplinas.DisciplinasAdapter.EXTRA_DISCIPLINA;
 public class DisciplinasDetailActivity extends BaseActivity implements AvaliacoesDialogFragment.AoSalvarProva,
         AvaliacoesDialogFragment.AoEditarProva {
 
+    /**
+     * Butterknife para integrar xml e java
+     */
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 

@@ -16,6 +16,7 @@ public class Provas implements Serializable {
     private double pesoNaMediaFinal;
     private double nota;
 
+    // Construtores para provas
     public Provas(String nome, String local, String horario, String data, double pesoNaMediaFinal) {
         this.nome = nome;
         this.local = local;
@@ -44,6 +45,8 @@ public class Provas implements Serializable {
         this.pesoNaMediaFinal = pesoNaMediaFinal;
         this.nota = nota;
     }
+
+    // Gets e sets referentes a dados das provas
 
     public long getId() {
         return id;

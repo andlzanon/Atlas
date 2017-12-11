@@ -13,6 +13,9 @@ import butterknife.ButterKnife;
 
 public class ListaDeDisciplinasActivity extends BaseActivity {
 
+    /**
+     * Butterknife para integrar xml e java
+     */
     @BindView(R.id.pager)
     ViewPager mViewPager;
 
@@ -29,6 +32,7 @@ public class ListaDeDisciplinasActivity extends BaseActivity {
 
         ButterKnife.bind(this);
 
+        // Titulo na action bar
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
 

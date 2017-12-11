@@ -25,6 +25,9 @@ import butterknife.ButterKnife;
 
 public class ListaDeDisciplinasFragment extends Fragment implements NovaDisciplinaDialog.AoSalvarEvento {
 
+    /**
+     * Butterknife para integrar java e xml
+     */
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
 
@@ -61,6 +64,7 @@ public class ListaDeDisciplinasFragment extends Fragment implements NovaDiscipli
         mAdapter = new DisciplinasAdapter(getContext(), mDisciplinas, fm);
         mRecyclerView.setAdapter(mAdapter);
 
+        // Floating button para adicionar disciplinas
         FloatingActionButton fab = (FloatingActionButton)view.findViewById(R.id.addDisciplinas);
         fab.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
@@ -86,13 +90,14 @@ public class ListaDeDisciplinasFragment extends Fragment implements NovaDiscipli
         return view;
     }
 
+    // Adiciona disciplina
     public void adiciona(Disciplina trabalho){
         mDisciplinas.add(trabalho);
         dr.inserir(trabalho);
         mAdapter.notifyDataSetChanged();
     }
 
-
+    // Remove disciplina
     public void exclui(Disciplina disciplina){
         mDisciplinas.remove(disciplina);
         dr.excluir(disciplina);

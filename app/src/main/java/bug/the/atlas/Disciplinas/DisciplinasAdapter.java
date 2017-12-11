@@ -46,6 +46,11 @@ public class DisciplinasAdapter extends RecyclerView.Adapter<DisciplinasAdapter.
         return dvh;
     }
 
+    /**
+     * Indica a situacao atual em cada disciplina
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(DisciplinasViewHolder holder, final int position) {
         Bitmap bitmap = Bitmap.createBitmap(200, 200, Bitmap.Config.RGB_565);
@@ -73,6 +78,10 @@ public class DisciplinasAdapter extends RecyclerView.Adapter<DisciplinasAdapter.
         });
     }
 
+    /**
+     * Retorna quantidade de disciplinas
+     * @return
+     */
     @Override
     public int getItemCount() {
         return disciplinas.size();

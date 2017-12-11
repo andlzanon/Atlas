@@ -42,6 +42,9 @@ public class AvaliacoesDialogFragment extends DialogFragment {
     private static final String DIALOG_TAG_PROVA = "dialog";
     private Provas mProva;
 
+    /**
+     * Butterknife para integrar xml e java
+     */
     @BindView(R.id.NomeAv)
     EditText nome;
 
@@ -62,6 +65,11 @@ public class AvaliacoesDialogFragment extends DialogFragment {
 
     DecimalFormat mFormato = new DecimalFormat("00");
 
+    /**
+     * Fragment para tela de avaliacoes
+     * @param prova
+     * @return
+     */
     public static AvaliacoesDialogFragment novaInstancia(Provas prova){
         Bundle params = new Bundle();
         params.putSerializable(EXTRA_PROVA, prova);
@@ -88,6 +96,9 @@ public class AvaliacoesDialogFragment extends DialogFragment {
 
         ButterKnife.bind(this, layout);
 
+        /**
+         * Tratamento dos dados ao criar avaliacao
+         */
         if (mProva != null) {
             nome.setText(mProva.getNome());
             local.setText(mProva.getLocal());
@@ -100,6 +111,9 @@ public class AvaliacoesDialogFragment extends DialogFragment {
 
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
+        /**
+         * Obtem horario para criar avaliacao
+         */
         horario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,6 +133,9 @@ public class AvaliacoesDialogFragment extends DialogFragment {
         });
 
 
+        /**
+         * Obtem data do calendario para criar evento
+         */
         data.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,6 +156,9 @@ public class AvaliacoesDialogFragment extends DialogFragment {
             }
         });
 
+        /**
+         * Botao para salvar evento durante cadastro
+         */
         final Button button = (Button) layout.findViewById(R.id.button_save_evento);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,6 +167,9 @@ public class AvaliacoesDialogFragment extends DialogFragment {
             }
         });
 
+        /**
+         * Botao para cancelar edicao/cadastro de evento
+         */
         final Button buttonCancel = (Button) layout.findViewById(R.id.button_cancel_evento);
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,6 +178,9 @@ public class AvaliacoesDialogFragment extends DialogFragment {
             }
         });
 
+        /**
+         * Botao para confirmar calendario durante cadastro
+         */
         final Button buttonCalendario = (Button) layout.findViewById(R.id.button_save_calendario);
         buttonCalendario.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,12 +192,19 @@ public class AvaliacoesDialogFragment extends DialogFragment {
         return layout;
     }
 
+    /**
+     * Abre fragment para cadastro
+     * @param fm
+     */
     public void abrir(FragmentManager fm){
         if(fm.findFragmentByTag(DIALOG_TAG_PROVA) == null){
             show(fm, DIALOG_TAG_PROVA);
         }
     }
 
+    /**
+     * Tratamento dos dados durante cadastro de avaliacao
+     */
     public void salvaEdita(){
         Context context = getContext();
         if (mProva == null) {
@@ -216,6 +249,9 @@ public class AvaliacoesDialogFragment extends DialogFragment {
         dismiss();
     }
 
+    /**
+     * Funcao para salvar dados do calendario
+     */
     public void salvaCalendario(){
         Intent intent = new Intent(Intent.ACTION_INSERT);
         Calendar beginTime = Calendar.getInstance();
@@ -236,10 +272,16 @@ public class AvaliacoesDialogFragment extends DialogFragment {
         startActivity(intent);
     }
 
+    /**
+     * Interface para cadastrar prova em uma disciplina
+     */
     public interface AoSalvarProva {
         void adicionaProva(Provas prova);
     }
 
+    /**
+     * Interface para editar dados de prova em uma disciplina
+     */
     public interface AoEditarProva {
         void editaProva(Provas prova);
     }

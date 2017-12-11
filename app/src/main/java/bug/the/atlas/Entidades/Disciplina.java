@@ -20,6 +20,7 @@ public class Disciplina implements Parcelable{
     private int faltas;
     private double notaAtual;
 
+    // Construtores referentes as disciplinas
     public Disciplina(String nome, double media, double notaRec, int aulasPorSemana, int horasPorAula) {
         this.nome = nome;
         this.media = media;
@@ -41,6 +42,7 @@ public class Disciplina implements Parcelable{
         this.notaAtual = notaAtual;
     }
 
+    // Gets e sets referentes as disciplinas
     public long getId() {
         return id;
     }

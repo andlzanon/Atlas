@@ -22,6 +22,11 @@ public class DisciplinasRepositorio {
     }
 
 
+    /**
+     * Insere disciplinas no banco de dados
+     * @param disciplina
+     * @return
+     */
     public long inserir(Disciplina disciplina){
         SQLiteDatabase bd = helper.getWritableDatabase();
 
@@ -40,6 +45,11 @@ public class DisciplinasRepositorio {
         return id;
     }
 
+    /**
+     * Remove disciplina do banco de dados
+     * @param disciplina
+     * @return
+     */
     public int excluir(Disciplina disciplina){
         SQLiteDatabase db = helper.getWritableDatabase();
         int linhasModificas = db.delete(
@@ -52,6 +62,11 @@ public class DisciplinasRepositorio {
         return linhasModificas;
     }
 
+    /**
+     * Atualiza informacoes da disciplina no banco de dados
+     * @param disciplina
+     * @return
+     */
     public int atualizar(Disciplina disciplina){
         SQLiteDatabase bd = helper.getWritableDatabase();
 
@@ -72,6 +87,10 @@ public class DisciplinasRepositorio {
         return linhasModificadas;
     }
 
+    /**
+     * Apresenta lista de disciplinas salvas no banco de dados
+     * @param arrayList
+     */
     public void listaDisciplinas(ArrayList<Disciplina> arrayList){
         SQLiteDatabase bd = helper.getReadableDatabase();
 

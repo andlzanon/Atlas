@@ -20,6 +20,12 @@ public class ProvasRepositorio {
         helper = new ProvasSQLHelper(context);
     }
 
+    /**
+     * Insere provas no banco de dados da disciplina
+     * @param prova
+     * @param id_disciplina
+     * @return
+     */
     public long inserir(Provas prova, long id_disciplina){
         SQLiteDatabase bd = helper.getWritableDatabase();
 
@@ -38,6 +44,11 @@ public class ProvasRepositorio {
         return id;
     }
 
+    /**
+     * Exclui prova do banco de dados
+     * @param prova
+     * @return
+     */
     public int excluir(Provas prova){
         SQLiteDatabase db = helper.getWritableDatabase();
         int linhasModificas = db.delete(
@@ -50,6 +61,11 @@ public class ProvasRepositorio {
         return linhasModificas;
     }
 
+    /**
+     * Atualiza informacoes de prova ja cadastrada no banco de dados
+     * @param prova
+     * @return
+     */
     public int atualizar(Provas prova){
         SQLiteDatabase bd = helper.getWritableDatabase();
 
@@ -69,6 +85,10 @@ public class ProvasRepositorio {
         return linhasModificadas;
     }
 
+    /**
+     * Apresenta todas as provas salvas no banco de dados
+     * @param arrayList
+     */
     public void listaTodasProvas(ArrayList<Provas> arrayList){
         SQLiteDatabase bd = helper.getReadableDatabase();
 
@@ -106,6 +126,11 @@ public class ProvasRepositorio {
         bd.close();
     }
 
+    /**
+     * Apresenta todas as provas salvas no banco de dados referente a certa disciplina
+     * @param arrayList
+     * @param chave_estrangeira
+     */
     public void listaProvasDisciplina(ArrayList<Provas> arrayList, long chave_estrangeira){
         SQLiteDatabase bd = helper.getReadableDatabase();
 

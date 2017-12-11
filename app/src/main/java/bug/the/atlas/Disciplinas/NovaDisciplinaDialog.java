@@ -21,6 +21,9 @@ import butterknife.OnClick;
 
 public class NovaDisciplinaDialog extends DialogFragment {
 
+    /**
+     * Butterknife para integrar xml e java
+     */
     @BindView(R.id.NomeDisciplina)
     EditText nome;
 
@@ -84,6 +87,7 @@ public class NovaDisciplinaDialog extends DialogFragment {
         salvaEdita();
     }
 
+    // Edita campo ao criar disciplina
     public void salvaEdita(){
         Fragment fragment = getParentFragment();
         if(nome.getText().toString().equals("") || media.getText().toString().equals("")

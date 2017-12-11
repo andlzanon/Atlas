@@ -23,6 +23,9 @@ public class AbaProvasAdapter extends RecyclerView.Adapter<AbaProvasAdapter.AbaP
 
     public static class AbaProvasViewHolder extends RecyclerView.ViewHolder{
 
+        /**
+         * Butterknife para integrar xml e java
+         */
         @BindView(R.id.aba_nomeProva)
         TextView aba_nomeDaProva;
 
@@ -58,6 +61,11 @@ public class AbaProvasAdapter extends RecyclerView.Adapter<AbaProvasAdapter.AbaP
         return evh;
     }
 
+    /**
+     * Seta as abas referentes as provas
+     * @param provasViewHolder
+     * @param i
+     */
     @Override
     public void onBindViewHolder(final AbaProvasAdapter.AbaProvasViewHolder provasViewHolder, int i) {
         provasViewHolder.aba_nomeDaProva.setText(provas.get(i).getNome());
@@ -66,6 +74,10 @@ public class AbaProvasAdapter extends RecyclerView.Adapter<AbaProvasAdapter.AbaP
         provasViewHolder.aba_dataDaProva.setText(provas.get(i).getData());
     }
 
+    /**
+     * Retorna quantidade de provas
+     * @return
+     */
     @Override
     public int getItemCount() {
         return provas.size();

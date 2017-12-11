@@ -23,6 +23,9 @@ public class ProvasAdapter extends RecyclerView.Adapter<ProvasAdapter.ProvasView
 
     public static class ProvasViewHolder extends RecyclerView.ViewHolder{
 
+        /**
+         * Butterknife para integrar xml e java
+         */
         @BindView(R.id.nomeProva)
         TextView nomeDaProva;
 

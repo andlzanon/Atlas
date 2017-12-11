@@ -38,6 +38,11 @@ public class AbasPagerAdapter extends FragmentPagerAdapter {
         return titulosAbas.length;
     }
 
+    /**
+     * Retorna a aba atual
+     * @param position
+     * @return
+     */
     @Override
     public CharSequence getPageTitle(int position){
         Locale l = Locale.getDefault();

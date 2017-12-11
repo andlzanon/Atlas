@@ -27,6 +27,10 @@ public class DisciplinasSQLHelper extends SQLiteOpenHelper {
         super(context, NOME_BD, null, VERSAO_BANCO);
     }
 
+    /**
+     * Cria banco de dados de disciplinas
+     * @param db
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABELA_DISCIPLINAS + " (" +
