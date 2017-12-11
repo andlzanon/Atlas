@@ -9,13 +9,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorAccent">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/dialogTitulo"
-            android:text="Nova Disciplina"
+            android:text="Avaliação"
             android:textStyle="bold|normal"
             android:textSize="22sp"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -23,7 +23,7 @@
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:textColor="#FFFFFF" />
 
     </LinearLayout>
@@ -33,18 +33,17 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:textColor="#000000"
-        android:textStyle="bold|normal"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:text="Nome da Disciplina"/>
+        android:text="Nome da avaliação"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/NomeDisciplina"
+        android:id="@+id/NomeAv"
         android:inputType="text"
-        android:hint="Digite o nome da disciplina"
+        android:hint="Escreva o nome da avaliação"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"/>
 
@@ -53,17 +52,66 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:textColor="#000000"
+        android:text="Local da Avaliação"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="20dp"
-        android:textStyle="bold|normal"
-        android:text="Notas"/>
+        android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/LocalAv"
+        android:inputType="text"
+        android:hint="Digite o local"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#000000"
+        android:text="Horario da Avaliação"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/HorarioAv"
+        android:focusable="false"
+        android:inputType="none"
+        android:hint="Definia o horário da Avaliação"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#000000"
+        android:text="Data da avaliação"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/DataAv"
+        android:focusable="false"
+        android:inputType="none"
+        android:hint="Defina a data da avaliação"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="center"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin">
 
@@ -72,15 +120,15 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:textColor="#000000"
-            android:text="Média"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+            android:text="Nota"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"/>
 
         <EditText
-            android:layout_width="30dp"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:id="@+id/edtTxtMedia"
-            android:inputType="number"
+            android:id="@+id/NotaAv"
+            android:inputType="numberDecimal"
             android:layout_marginRight="20dp"
             android:layout_marginEnd="20dp"/>
 
@@ -89,70 +137,15 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:textColor="#000000"
-            android:text="Recuperação"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+            android:text="Peso"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"/>
 
         <EditText
-            android:layout_width="30dp"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:id="@+id/edtTextRec"
-            android:inputType="number" />
-
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textColor="#000000"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="20dp"
-        android:textStyle="bold|normal"
-        android:text="Aulas e Horas por Semana"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:text="Aulas"
-            android:textColor="#000000"
-            android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/edtTxtNroAulas"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
-            android:inputType="number" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="5dp"
-            android:paddingStart="5dp"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:text="Horas"
-            android:textColor="#000000"
-            android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/edtTextHoras"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:inputType="number" />
+            android:id="@+id/PesoAv"
+            android:inputType="numberDecimal" />
 
     </LinearLayout>
 
@@ -169,7 +162,7 @@
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:background="@null"
-            android:id="@+id/button_save"
+            android:id="@+id/button_save_evento"
             android:text="Salvar"
             android:textColor="@color/colorAccent"/>
 
@@ -177,18 +170,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:id="@+id/button_cancel"
+            android:id="@+id/button_cancel_evento"
             android:text="Cancelar"
             android:textColor="@color/colorAccent"
-            android:layout_toLeftOf="@+id/button_save"
-            android:layout_toStartOf="@+id/button_save"
+            android:layout_toLeftOf="@+id/button_save_evento"
+            android:layout_toStartOf="@+id/button_save_evento"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginStart="@dimen/activity_horizontal_margin"/>
 
     </RelativeLayout>
 
-
 </LinearLayout>
-
 
 

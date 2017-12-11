@@ -3,6 +3,8 @@ package bug.the.atlas.Entidades;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
+
 /**
  * Created by Andre on 05/12/2017.
  */

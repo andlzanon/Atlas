@@ -21,7 +21,7 @@ import butterknife.OnClick;
 
 public class NovaDisciplinaDialog extends DialogFragment {
 
-    @BindView(R.id.edtTxtNomeDisciplina)
+    @BindView(R.id.NomeDisciplina)
     EditText nome;
 
     @BindView(R.id.edtTxtMedia)
